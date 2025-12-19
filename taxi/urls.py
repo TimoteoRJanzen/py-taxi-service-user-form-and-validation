@@ -62,9 +62,9 @@ urlpatterns = [
         name="driver-update"
     ),
     path(
-        "drivers/<int:pk>/drivercar/",
+        "cars/<int:pk>/toggle-driver/",
         AddCarDriver.as_view(),
-        name="drivercar-update"
+        name="toggle-car-driver"
     ),
 ]
 

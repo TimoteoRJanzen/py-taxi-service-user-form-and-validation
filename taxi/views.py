@@ -1,11 +1,14 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import generic, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Driver, Car, Manufacturer
-from taxi.forms import DriverCreateForm, DriverUpdateForm, CarForm
+from .models import Car, Manufacturer
+from taxi.forms import DriverCreateForm, DriverLicenseUpdateForm, CarForm
+
+Driver = get_user_model()
 
 
 @login_required
@@ -124,4 +127,4 @@ class DriverDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class DriverUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Driver
-    form_class = DriverUpdateForm
+    form_class = DriverLicenseUpdateForm

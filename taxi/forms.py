@@ -2,7 +2,10 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
-from taxi.models import Driver, Car
+from taxi.models import Car
+from taxi.validators import validate_driver_license
+
+Driver = get_user_model()
 
 
 class DriverCreateForm(UserCreationForm):
@@ -12,10 +15,15 @@ class DriverCreateForm(UserCreationForm):
                   + ("first_name", "last_name", "license_number", ))
 
 
-class DriverUpdateForm(UserChangeForm):
+class DriverLicenseUpdateForm(forms.ModelForm):
+    license_number = forms.CharField(
+        max_length=8,
+        validators=[validate_driver_license],
+    )
+
     class Meta:
         model = Driver
-        fields = ("license_number", )
+        fields = ("license_number",)
 
 
 class CarForm(forms.ModelForm):
